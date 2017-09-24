@@ -1,0 +1,16 @@
+* {
+	border: 1px solid black;
+}
+#heading {
+	text-align: center;
+	font-family: 'Bree Serif', serif;
+    font-size: 46px;
+	color: black;
+}
+
+h3 {
+	/*text-align: center;*/
+	font-family: 'Open San', serif;
+	font-size: 26px;
+	color:black;
+}

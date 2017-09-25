@@ -25,6 +25,14 @@ h3 {
 #triviaResults {
 	text-align: center;
 	font-family: 'Open San', serif;
-	font-size: 14px;
+	font-size: 18px;
 	color:black;
+}
+
+#game {
+	text-align: center;
+	font-family: 'Open San', serif;
+	font-size: 18px;
+	color:black;
+
 }

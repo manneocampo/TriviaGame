@@ -1,51 +1,129 @@
 var triviaGame = {
-	var questions = [
-			questionOne: "What does the alohamora spell do?",
-			answerChoicesOne: ,
-			questionTwo: "What's Harry's mom's name?",
-			answerChoicesTwo: ,
-			questionThree: "Who does Harry end up with?",
-			answerChoicesThree: ,
-			questionFour: "What is the spell to levitate?",
-			answerChoicesFour: ,			
-			questionFive: "Which book talks about students getting petrified?",
-			answerChoicesFive: ,
-			questionSix: "Fill in the blank for the station name: ___ Platform 9 3/4",
-			answerChoicesSix: ,
-			questionSeven: "What was Harry's first address?": ,
-			answerChoicesSeven: ,
-			questionEight: "Which professor turned into a werewolf?",
-			answerChoicesEight: ,
-			questionNine: "What was the sixth Horcrux?",
-			answerChoicesNine: ,
-			questionTen: "What is Voldemort's real name?",
-			answerChoicesTen: ,
-		],
-	var answers = [
-			answerOne: "unlocks doors", 
-			answerTwo: "Lily", 
-			answerThree: "Ginny", 
-			answerFour: "Levioso", 
-			answerFive: "Chamber of Secrets", 
-			answerSix: "King's Cross", 
-			answerSeven: "4 Privet Drive", 
-			answerEight: "Remus Lupin", 
-			answerNine: "Nagini", 
-			answerTen: "Tom Riddle", 
-		],
-			 
+	questions : [
+		{	
+			question: "What does the alohamora spell do?",
+			answer: "unlocks",
+			incorrectAnswers:[ 
+				"greets",
+				"locks",
+				"increases something"
+			],
+		},	
+		{	
+			question: "What's Harry's mom's name?",
+			answer: "Lily",
+			incorrectAnswers:[ 
+				"Katie",
+				"Angela",
+				"Luna"
+			],
+		},	
+		{	
+			question: "Who does Harry end up with?",
+			answer: "Ginny", 
+			incorrectAnswers:[ 
+				"Cho",
+				"Hermione",
+				"Lavender"
+			],
+		},
+		{	question: "What is the spell to levitate?",
+			answer: "Leviosa", 
+			incorrectAnswers:[ 
+				"Risio",
+				"Levioso",
+				"Risia"
+			],	
+		},		
+		{	
+			question: "Which book talks about students getting petrified?",
+			answer: "The Chamber of Secrets", 
+			incorrectAnswers:[ 
+				"The Goblet of Fire",
+				"The Half-Blood Prince",
+				"The Deathly Hallows"
+			],
+		},
+			
+		{	question: "Fill in the blank for the station name: ___ Platform 9 3/4",
+			answer: "King's Cross", 
+			incorrectAnswers:[ 
+				"Aberdeen",
+				"Alexandra Palace",
+				"King's Park"
+			],
+		},	
+		{	
+			question: "What was Harry's first address?",
+			answer: "4 Privet Drive", 
+			incorrectAnswers:[ 
+				"1 Privet Drive",
+				"2 Privet Drive",
+				"3 Privet Drive"
+			],
+		},
+		{
+			question: "Which professor turned into a werewolf?",
+			answer: "Remus Lupin",
+			incorrectAnswers:[ 
+				"Quirinus Quirrell",
+				"Horace Slughorn",
+				"Pomona Sprout"
+			],
+		},
+		{	
+			question: "What was the sixth Horcrux?",
+			answer: "Nagini",
+			incorrectAnswers:[ 
+				"Hufflepuff Cup",
+				"Slytherin Locket",
+				"Ravenclaw Diadem"
+			],
+		},	
+		{	
+			question: "What is Voldemort's real name?",
+			answer: "Tom Riddle", 
+			incorrectAnswers:[ 
+				"John Riddle",
+				"Tim Riddle",
+				""
+			],
+		},	
+	],
+			indexCounter: 0,
+			questionCounter: 1,
+			waitTime: 5,
+			timer: 10, 	 
 			correctAnswers: 0,
 			incorrectAnswers: 0,
-			unanswered: 0, 
+			unanswered: 10, 
 		reset: function() {
+			this.questionCounter= 1;
+			this.indexCounter = 0;
+			this.correctAnswers = 0; 
+			this.incorrectAnswers = 0; 
+			this.unanswered = 10; 
+			this.gamePlay(); 
 			$("#triviaResults").html(this.correctAnswers);
 			$("#triviaResults").html(this.incorrectAnswers);
 			$("#triviaResults").html(this.unanswered);
 			/*idea is that I will replace the div with the objects 
 			upon reset and will display only once press done*/
 		},
-		gamePlay: function() {
-			this.reset();
+		gamePlay: function() { //function to display questions and handle answers
+			// this.reset();
+			
+			
+			var nIntervId;
+			function tenSeconds () {
+			nIntervId= setInterval(tenSeconds, 1000);
+			
+			triviaGame.timer--;
+				console.log(nIntervId);
+			}
+				
+
+			
 			/* should have a function activate on click for start btn*/
 			/*should use the slideshow ideas for selecting each question obj
 			but should only switch after like 5s after the end of the timer, need
@@ -64,4 +142,4 @@ var triviaGame = {
 			the timer runs out*/
 		}
 }
-triviaGame();
+$("#start").click(triviaGame.gamePlay);

@@ -91,14 +91,12 @@ var triviaGame = {
 		},	
 	],
 			indexCounter: 0,
-			questionCounter: 1,
 			waitTime: 5,
 			timer: 10, 	 
 			correctAnswers: 0,
 			incorrectAnswers: 0,
 			unanswered: 10, 
 		reset: function() {
-			this.questionCounter= 1;
 			this.indexCounter = 0;
 			this.correctAnswers = 0; 
 			this.incorrectAnswers = 0; 
@@ -110,17 +108,20 @@ var triviaGame = {
 			/*idea is that I will replace the div with the objects 
 			upon reset and will display only once press done*/
 		},
+		tenSeconds: function() {
+			var nIntervId = setInterval(function() {
+				console.log("timer", triviaGame.timer);
+				triviaGame.timer--;
+			}, 1000);
+			
+			// console.log(nIntervId);
+		},
 		gamePlay: function() { //function to display questions and handle answers
-			// this.reset();
+			// triviaGame.reset();
+			triviaGame.tenSeconds();
 			
 			
-			var nIntervId;
-			function tenSeconds () {
-			nIntervId= setInterval(tenSeconds, 1000);
 			
-			triviaGame.timer--;
-				console.log(nIntervId);
-			}
 				
 
 			

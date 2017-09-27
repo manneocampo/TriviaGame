@@ -109,10 +109,18 @@ var triviaGame = {
 			upon reset and will display only once press done*/
 		},
 		tenSeconds: function() {
+						
 			var nIntervId = setInterval(function() {
 				console.log("timer", triviaGame.timer);
+				$("#timerHolder").html("Time Left:" + triviaGame.timer);//not working
 				triviaGame.timer--;
+					if(triviaGame.timer < 0) {
+						clearInterval(nIntervId);
+					}
 			}, 1000);
+			
+			
+			
 			
 			// console.log(nIntervId);
 		},
@@ -125,9 +133,10 @@ var triviaGame = {
 				
 
 			
-			/* should have a function activate on click for start btn*/
-			/*should use the slideshow ideas for selecting each question obj
-			but should only switch after like 5s after the end of the timer, need
+			/* should have a function activate on click for start btn
+			display question and timer*/
+			/*display question until timer runs out or answer selected
+			then switch to next question 5s after the end of the timer or answer selected, need
 			a timer for each question*/
 			/*Need to figure out how to do multiple choice*/
 			/*the idea is to maybe make a for loop thru questions with the multiple choice

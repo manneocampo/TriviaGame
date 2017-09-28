@@ -130,7 +130,7 @@ var triviaGame = {
 			//display questions 
 			$(".questions").show();
 			$("#done").show();	
-			$("#questionsHolder").append(<button></button>)
+			$("#questionsHolder").append("<button></button>");
 			//run ten second timer
 			triviaGame.tenSeconds();
 			

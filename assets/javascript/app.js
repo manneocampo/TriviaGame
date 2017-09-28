@@ -1,3 +1,8 @@
+$(document).ready(function(){
+			$(".questions").hide();
+			$(".results").hide();
+			$("#done").hide();	
+			});
 var triviaGame = {
 	questions : [
 		{	
@@ -86,13 +91,13 @@ var triviaGame = {
 			incorrectAnswers:[ 
 				"John Riddle",
 				"Tim Riddle",
-				""
+				"Jim Riddle"
 			],
 		},	
 	],
 			indexCounter: 0,
 			waitTime: 5,
-			timer: 10, 	 
+			timer: 30, 	 
 			correctAnswers: 0,
 			incorrectAnswers: 0,
 			unanswered: 10, 
@@ -114,18 +119,19 @@ var triviaGame = {
 				console.log("timer", triviaGame.timer);
 				$("#timerHolder").html("Time Left:" + triviaGame.timer);//not working
 				triviaGame.timer--;
-					if(triviaGame.timer < 0) {
+					if(triviaGame.timer < 0) { //or if they press done button
 						clearInterval(nIntervId);
 					}
 			}, 1000);
 			
-			
-			
-			
-			// console.log(nIntervId);
 		},
 		gamePlay: function() { //function to display questions and handle answers
-			// triviaGame.reset();
+			// triviaGame.reset()
+			//display questions 
+			$(".questions").show();
+			$("#done").show();	
+			$("#questionsHolder").append(<button></button>)
+			//run ten second timer
 			triviaGame.tenSeconds();
 			
 			
@@ -151,5 +157,6 @@ var triviaGame = {
 			/*display the image or gif once answer chosen and press done btn or if 
 			the timer runs out*/
 		}
+		
 }
 $("#start").click(triviaGame.gamePlay);

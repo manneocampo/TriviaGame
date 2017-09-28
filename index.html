@@ -30,32 +30,32 @@
 	<div class="row">
 		<div class="col-sm-6">
 			<div id="img-container">			
-			<img  id="myImg" src="assets/images/harrypotterlogo.png" alt ="Pic of Current Word" width="100%" height="100%"> 
-			<div id="triviaResults">
-					<!-- <h3>Correct Answers:</h3>
-						<span>
-							<h4 id="correctPoints"></h4>
-						</span>
-					<h3>Incorrect Answers:</h3>
-						<span>
-							<h4 id="incorrectPoints"></h4>
-						</span>
-					<h3>Unanswered Questions:</h3>
-						<span>
-							<h4 id="unansweredPoints"></h4>
-						</span> -->
-				</div>
+			<img  id="myImg" src="assets/images/harrypotterlogo.png" alt ="Pic of Current Word" width="100%" height="100%"> 	
 			</div>
 		</div>
 
 		<div id="game" class="col-sm-6">
 			<div>	
-				<div id="timerHolder"></div>
-				<button id="start">Start</button>
+				<div id="timerHolder">You have 30seconds to Answer!</div>
+				<button id="start" class="button">Start</button>
 								
-				<div id="questionsHolder">Questions go here</div>
+				<div id="questionsHolder" class="questions">Questions go here</div>
+				<div id="answersHolder" class="answers">Answers go here</div>
 				
-				<button id="done">Done</button>				
+				<div id="triviaResults">
+					<h3 class="results">Correct Answers:</h3>
+						<span>
+							<h4 id="correctPoints"></h4>
+						</span>
+					<h3 class="results">Incorrect Answers:</h3>
+						<span>
+							<h4 id="incorrectPoints"></h4>
+						</span>
+					<h3 class="results">Unanswered Questions:</h3>
+						<span>
+							<h4 id="unansweredPoints"></h4>
+						</span>
+				</div>			
 			</div>	
 		</div>
 	</div>			

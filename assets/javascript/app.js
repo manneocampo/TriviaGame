@@ -131,6 +131,7 @@ $(document).ready(function(){
 				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
+					
 					//run ten second timer
 					triviaGame.thirtySeconds();
 					//display questions 

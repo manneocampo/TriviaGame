@@ -100,7 +100,8 @@ $(document).ready(function(){
 					timer: 30, 	 
 					correctAnswers: 0,
 					incorrectAnswers: 0,
-					unanswered: 10, 
+					unanswered: 10,
+					nIntervId: null, 
 				reset: function() {
 					this.indexCounter = 0;
 					this.correctAnswers = 0; 
@@ -113,44 +114,58 @@ $(document).ready(function(){
 					/*idea is that I will replace the div with the objects 
 					upon reset and will display only once press done*/
 				},
-				tenSeconds: function() {
+				thirtySeconds: function() {
 								
-					var nIntervId = setInterval(function() {
-						console.log("timer", triviaGame.timer);
+					triviaGame.nIntervId = setInterval(function() {
+						// console.log("timer", triviaGame.timer);
 						$("#timerHolder").html("Time Left:" + triviaGame.timer);//not working
 						triviaGame.timer--;
 							if(triviaGame.timer < 0) { //or if they press done button
-								clearInterval(nIntervId);
+								clearInterval(triviaGame.nIntervId);
+								//call a fn that pulls up the next question
+								//call a fn w a null answer 
 							}
 					}, 1000);
 					
 				},
+				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
+					//run ten second timer
+					triviaGame.thirtySeconds();
 					//display questions 
 					$(".questions").show();
 					$("#done").show();	
 					$(".answers").show();
 					$("#questionsHolder").html(triviaGame.questions[triviaGame.indexCounter].question);
-					$("#answersHolder").html('<div><button>' + triviaGame.questions[triviaGame.indexCounter].answer);
+					$("#answersHolder").html('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].answer);
 					
 					for(var i=0; i<triviaGame.questions[i].incorrectAnswers.length; i++){
-					$("#answersHolder").append('<div><button>' + triviaGame.questions[triviaGame.indexCounter].incorrectAnswers[i]);
+					$("#answersHolder").append('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].incorrectAnswers[i]);
 					}
-					//run ten second timer
-					triviaGame.tenSeconds();
-					
-					
-					
-						
+					$(".answer").click(function() {
+						console.log($(this).text());
+						clearInterval(triviaGame.nIntervId);
+						triviaGame.timer=30;
+						if(triviaGame.questions[triviaGame.indexCounter].answer === $(this).text()) {
+							console.log("correct answer");
+							triviaGame.correctAnswers++;
+
+						}else {
+							console.log("incorrect answer");
+							triviaGame.incorrectAnswers++;
+						}
+						triviaGame.indexCounter++;
+							triviaGame.gamePlay();
+					});
 
 					
-					/* should have a function activate on click for start btn
-					display question and timer*/
-					/*display question until timer runs out or answer selected
-					then switch to next question 5s after the end of the timer or answer selected, need
+					
+					
+				
+					/*then switch to next question 5s after the end of the timer or answer selected, need
 					a timer for each question*/
-					/*Need to figure out how to do multiple choice*/
+				
 					/*the idea is to maybe make a for loop thru questions with the multiple choice
 					answers and just go in order of them to display in like a slide show fashion
 					then show the correct answer and image or gif depending on two situations 
@@ -166,5 +181,7 @@ $(document).ready(function(){
 				
 		}
 		$("#start").click(triviaGame.gamePlay);
+		
 });		
+
 

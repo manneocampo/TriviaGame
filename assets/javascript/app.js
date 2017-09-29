@@ -131,7 +131,12 @@ $(document).ready(function(){
 				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
+					$('#answersHolder').empty();
+					var choices = triviaGame.questions[triviaGame.indexCounter].incorrectAnswers;
+					var random = Math.floor(Math.random()*4);
+					choices.splice(random, 0, triviaGame.questions[triviaGame.indexCounter].answer);
 					
+
 					//run ten second timer
 					triviaGame.thirtySeconds();
 					//display questions 
@@ -139,10 +144,10 @@ $(document).ready(function(){
 					$("#done").show();	
 					$(".answers").show();
 					$("#questionsHolder").html(triviaGame.questions[triviaGame.indexCounter].question);
-					$("#answersHolder").html('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].answer);
+					// $("#answersHolder").html('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].answer);
 					
-					for(var i=0; i<triviaGame.questions[i].incorrectAnswers.length; i++){
-					$("#answersHolder").append('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].incorrectAnswers[i]);
+					for(var i=0; i<choices.length; i++){
+					$("#answersHolder").append('<div><button class="answer">' + choices[i]);
 					}
 					$(".answer").click(function() {
 						console.log($(this).text());

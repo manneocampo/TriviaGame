@@ -97,7 +97,7 @@ $(document).ready(function(){
 			],
 					indexCounter: 0,
 					waitTime: 5,
-					timer: 30, 	 
+					timer: 5, //MUST CHANGE BACK TO 10seconds	 
 					correctAnswers: 0,
 					incorrectAnswers: 0,
 					unanswered: 10,
@@ -114,7 +114,7 @@ $(document).ready(function(){
 					/*idea is that I will replace the div with the objects 
 					upon reset and will display only once press done*/
 				},
-				thirtySeconds: function() {
+				tenSeconds: function() {
 								
 					triviaGame.nIntervId = setInterval(function() {
 						// console.log("timer", triviaGame.timer);
@@ -122,7 +122,7 @@ $(document).ready(function(){
 						triviaGame.timer--;
 							if(triviaGame.timer < 0) { 
 								clearInterval(triviaGame.nIntervId);
-								
+								// triviaGame.answer();
 								 
 							}
 					}, 1000);
@@ -131,59 +131,71 @@ $(document).ready(function(){
 				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
+					if (triviaGame.indexCounter > 9) {
+						triviaGame.endGame();
+					}else {
 
-					/*var created to make position of answer and incorrect answers random
-					and also .empty removes the first set of Q & A so the next one can replace*/
-					$('#answersHolder').empty();
-					var choices = triviaGame.questions[triviaGame.indexCounter].incorrectAnswers;
-					var random = Math.floor(Math.random()*4);
-					choices.splice(random, 0, triviaGame.questions[triviaGame.indexCounter].answer);
-					
+						/*var created to make position of answer and incorrect answers random
+						and also .empty removes the first set of Q & A so the next one can replace*/
+						$('#answersHolder').empty();
+						var choices = triviaGame.questions[triviaGame.indexCounter].incorrectAnswers;
+						var random = Math.floor(Math.random()*4);
+						choices.splice(random, 0, triviaGame.questions[triviaGame.indexCounter].answer);
+						
 
-					//run ten second timer
-					triviaGame.thirtySeconds();
+						//run ten second timer
+						triviaGame.tenSeconds();
 
-					//display questions 
-					$(".questions").show();
-					$("#done").show();	
-					$(".answers").show();
-					$("#questionsHolder").html(triviaGame.questions[triviaGame.indexCounter].question);
-					// $("#answersHolder").html('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].answer);
-					
-					//showing the answer and incorrect choices as buttons
-					for(var i=0; i<choices.length; i++){
-					$("#answersHolder").append('<div><button class="answer">' + choices[i]);
-					}
+						//display questions 
+						$(".questions").show();	
+						$(".answers").show();
+						$(".button").hide();
+						$("#questionsHolder").html(triviaGame.questions[triviaGame.indexCounter].question);
+						// $("#answersHolder").html('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].answer);
+						
+						//showing the answer and incorrect choices as buttons
+						for(var i=0; i<choices.length; i++){
+						$("#answersHolder").append('<div><button class="answer">' + choices[i]);
+						}
+						triviaGame.answer();
 
-					//event handler for clicking on btns
+						/*then switch to next question 5s after the end of the timer or answer selected, need
+						a timer for each question*/	
+					}	
+				}, 
+				answer: function() {
+						//event handler for clicking on btns
 					$(".answer").click(function() {
 						console.log($(this).text());//checking that the text of btn shows, means working
 						clearInterval(triviaGame.nIntervId);//clears timer
-						triviaGame.timer=30;//resets timer to 30 once clears
+						triviaGame.timer=5;//resets timer to 10 once clears
 						if(triviaGame.questions[triviaGame.indexCounter].answer === $(this).text()) {
 							console.log("correct answer");
 							triviaGame.correctAnswers++;
-							$("#correctPoints").html(triviaGame.correctAnswers);//meant to show points
+							$(".display").html("Correct!Keep it Up!");
+							console.log("correct pts:"+ triviaGame.correctAnswers);
+							
 
 
 						}else {
 							console.log("incorrect answer");
 							triviaGame.incorrectAnswers++;
-							$("#incorrectAnswers").html(triviaGame.incorrectAnswers);//meant to show points
+							$(".display").html("Uh oh, that's not right.");
+							console.log("incorrect pts:" + triviaGame.incorrectAnswers);
+							
 						}
 						triviaGame.indexCounter++;
-							triviaGame.gamePlay();
+						triviaGame.gamePlay();
 					});
+				},
+				endGame: function() {
+					$(".questions").hide();	
+					$(".answers").hide();
+					$(".button").hide();
+					$("#correctPoints").html("Correct Answers:" + triviaGame.correctAnswers);//meant to show points
+					$("#incorrectPoints").html("Incorrect Answers:" + triviaGame.incorrectAnswers);//meant to show points
+				},
 
-					
-					
-					
-				
-					/*then switch to next question 5s after the end of the timer or answer selected, need
-					a timer for each question*/
-				
-					
-				}, 
 				display: function(){
 					/*display the image or gif once answer chosen and press done btn or if 
 					the timer runs out*/

@@ -113,7 +113,7 @@ $(document).ready(function(){
 					$("#triviaResults").html(this.incorrectAnswers);
 					$("#triviaResults").html(this.unanswered);
 					/*idea is that I will replace the div with the objects 
-					upon reset and will display only once press done*/
+					upon reset and will display only once game is done*/
 				},
 				tenSeconds: function() {
 								
@@ -121,7 +121,8 @@ $(document).ready(function(){
 						// console.log("timer", triviaGame.timer);
 						$("#timerHolder").html("Time Left:" + triviaGame.timer);
 						triviaGame.timer--;
-							if(triviaGame.timer < 0) { 
+						// triviaGame.timesUp();
+							if(triviaGame.timer < 0) { //can't take out line 125 and 126 to use timesUp, breaks things
 								clearInterval(triviaGame.nIntervId);
 								/*Tried to get the next two lines to work if timer runs out*/
 								//indexCounter++; should have gone to next question set
@@ -130,6 +131,12 @@ $(document).ready(function(){
 					}, 1000);
 					
 				},
+				// timesUp: function(){ //doesn't work the idea was to separate parts of timer to go to next ques when time <0
+				// 	if(triviaGame.timer < 0) { 
+				// 	clearInterval(triviaGame.nIntervId);
+					
+				// 	}
+				// }, 
 				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
@@ -149,6 +156,7 @@ $(document).ready(function(){
 
 						//run ten second timer
 						triviaGame.tenSeconds();
+						// triviaGame.timesUp();//doesn't work
 
 						//display questions 
 						$(".questions").show();	
@@ -159,7 +167,7 @@ $(document).ready(function(){
 						
 						//showing the answer and incorrect choices as buttons
 						for(var i=0; i<choices.length; i++){
-						$("#answersHolder").append('<div><button class="answer">' + choices[i]);
+						$("#answersHolder").append('<div><button class="answer btn btn-default">' + choices[i]);
 						}
 						triviaGame.answer();
 

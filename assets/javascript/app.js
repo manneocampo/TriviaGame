@@ -97,7 +97,7 @@ $(document).ready(function(){
 			],
 					indexCounter: 0,
 					// waitTime: 5, //considering doing setTimeout instead of fn
-					timer: 5, //MUST CHANGE BACK TO 10seconds	 
+					timer: 10, //MUST CHANGE BACK TO 10seconds	 
 					correctAnswers: 0,
 					incorrectAnswers: 0,
 					unanswered: 10,
@@ -180,7 +180,7 @@ $(document).ready(function(){
 					$(".answer").click(function() {
 						console.log($(this).text());//checking that the text of btn shows, means working
 						clearInterval(triviaGame.nIntervId);//clears timer
-						triviaGame.timer=5;//resets timer to 10 once clears
+						triviaGame.timer=10;//resets timer to 10 once clears
 						if(triviaGame.questions[triviaGame.indexCounter].answer === $(this).text()) {
 							console.log("correct answer");
 							triviaGame.correctAnswers++;

@@ -97,17 +97,18 @@ $(document).ready(function(){
 			],
 					indexCounter: 0,
 					// waitTime: 5, //considering doing setTimeout instead of fn
-					timer: 10, //MUST CHANGE BACK TO 10seconds	 
+					timer: 5, //MUST CHANGE BACK TO 10seconds	 
 					correctAnswers: 0,
 					incorrectAnswers: 0,
-					unanswered: 10,
+					unanswered: 0,
 					nIntervId: null, 
 
 				reset: function() {
 					this.indexCounter = 0;
 					this.correctAnswers = 0; 
 					this.incorrectAnswers = 0; 
-					this.unanswered = 10; 
+					this.unanswered = 10;
+					this.timer= 10; 
 					this.gamePlay(); 
 					$("#triviaResults").html(this.correctAnswers);
 					$("#triviaResults").html(this.incorrectAnswers);
@@ -119,20 +120,23 @@ $(document).ready(function(){
 								
 					triviaGame.nIntervId = setInterval(function() {
 						// console.log("timer", triviaGame.timer);
-						$("#timerHolder").html("Time Left:" + triviaGame.timer);
 						triviaGame.timer--;
+						$("#timerHolder").html("Time Left:" + triviaGame.timer);
+						
 						// triviaGame.timesUp();
-							if(triviaGame.timer < 0) { //can't take out line 125 and 126 to use timesUp, breaks things
+							if(triviaGame.timer == 0) { //can't take out line 125 and 126 to use timesUp, breaks things
 								clearInterval(triviaGame.nIntervId);
 								/*Tried to get the next two lines to work if timer runs out*/
-								//indexCounter++; should have gone to next question set
-								// triviaGame.gamePlay(); should have invoked game fn	 
+								triviaGame.indexCounter++; //should have gone to next question set
+								triviaGame.timer=5;
+								triviaGame.unanswered++;
+								triviaGame.gamePlay();// should have invoked game fn	 
 							}
 					}, 1000);
 					
 				},
 				// timesUp: function(){ //doesn't work the idea was to separate parts of timer to go to next ques when time <0
-				// 	if(triviaGame.timer < 0) { 
+				// 	if(triviaGame.timer <= 0) { 
 				// 	clearInterval(triviaGame.nIntervId);
 					
 				// 	}
@@ -140,6 +144,7 @@ $(document).ready(function(){
 				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
+
 					if (triviaGame.indexCounter > 9) {
 						triviaGame.endGame();
 					}else {
@@ -158,6 +163,7 @@ $(document).ready(function(){
 						triviaGame.tenSeconds();
 						// triviaGame.timesUp();//doesn't work
 
+						$("#timerHolder").html("Time Left:" + triviaGame.timer);
 						//display questions 
 						$(".questions").show();	
 						$(".answers").show();
@@ -180,7 +186,7 @@ $(document).ready(function(){
 					$(".answer").click(function() {
 						console.log($(this).text());//checking that the text of btn shows, means working
 						clearInterval(triviaGame.nIntervId);//clears timer
-						triviaGame.timer=10;//resets timer to 10 once clears
+						triviaGame.timer=5;//resets timer to 10 once clears
 						if(triviaGame.questions[triviaGame.indexCounter].answer === $(this).text()) {
 							console.log("correct answer");
 							triviaGame.correctAnswers++;
@@ -209,6 +215,7 @@ $(document).ready(function(){
 					$("#timerHolder", ".questions", ".answer", ".display").empty();
 					$("#correctPoints").html("Correct Answers:" + triviaGame.correctAnswers);//meant to show points
 					$("#incorrectPoints").html("Incorrect Answers:" + triviaGame.incorrectAnswers);//meant to show points
+					$("#unansweredPoints").html("Unanswered:" + triviaGame.unanswered);
 				},
 
 				display: function(){

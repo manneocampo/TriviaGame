@@ -118,12 +118,12 @@ $(document).ready(function(){
 								
 					triviaGame.nIntervId = setInterval(function() {
 						// console.log("timer", triviaGame.timer);
-						$("#timerHolder").html("Time Left:" + triviaGame.timer);//not working
+						$("#timerHolder").html("Time Left:" + triviaGame.timer);
 						triviaGame.timer--;
-							if(triviaGame.timer < 0) { //or if they press done button
+							if(triviaGame.timer < 0) { 
 								clearInterval(triviaGame.nIntervId);
-								//call a fn that pulls up the next question
-								//call a fn w a null answer 
+								
+								 
 							}
 					}, 1000);
 					
@@ -131,6 +131,9 @@ $(document).ready(function(){
 				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
+
+					/*var created to make position of answer and incorrect answers random
+					and also .empty removes the first set of Q & A so the next one can replace*/
 					$('#answersHolder').empty();
 					var choices = triviaGame.questions[triviaGame.indexCounter].incorrectAnswers;
 					var random = Math.floor(Math.random()*4);
@@ -139,6 +142,7 @@ $(document).ready(function(){
 
 					//run ten second timer
 					triviaGame.thirtySeconds();
+
 					//display questions 
 					$(".questions").show();
 					$("#done").show();	
@@ -146,20 +150,26 @@ $(document).ready(function(){
 					$("#questionsHolder").html(triviaGame.questions[triviaGame.indexCounter].question);
 					// $("#answersHolder").html('<div><button class="answer">' + triviaGame.questions[triviaGame.indexCounter].answer);
 					
+					//showing the answer and incorrect choices as buttons
 					for(var i=0; i<choices.length; i++){
 					$("#answersHolder").append('<div><button class="answer">' + choices[i]);
 					}
+
+					//event handler for clicking on btns
 					$(".answer").click(function() {
-						console.log($(this).text());
-						clearInterval(triviaGame.nIntervId);
-						triviaGame.timer=30;
+						console.log($(this).text());//checking that the text of btn shows, means working
+						clearInterval(triviaGame.nIntervId);//clears timer
+						triviaGame.timer=30;//resets timer to 30 once clears
 						if(triviaGame.questions[triviaGame.indexCounter].answer === $(this).text()) {
 							console.log("correct answer");
 							triviaGame.correctAnswers++;
+							$("#correctPoints").html(triviaGame.correctAnswers);//meant to show points
+
 
 						}else {
 							console.log("incorrect answer");
 							triviaGame.incorrectAnswers++;
+							$("#incorrectAnswers").html(triviaGame.incorrectAnswers);//meant to show points
 						}
 						triviaGame.indexCounter++;
 							triviaGame.gamePlay();
@@ -172,13 +182,7 @@ $(document).ready(function(){
 					/*then switch to next question 5s after the end of the timer or answer selected, need
 					a timer for each question*/
 				
-					/*the idea is to maybe make a for loop thru questions with the multiple choice
-					answers and just go in order of them to display in like a slide show fashion
-					then show the correct answer and image or gif depending on two situations 
-					(if select an answer & press done btn, or if the timer runs out) 
-					then to switch to next depending on two conditions 
-					(if select an answer & press done btn, or if timer runs out)
-					at the end of all the  */
+					
 				}, 
 				display: function(){
 					/*display the image or gif once answer chosen and press done btn or if 

@@ -96,8 +96,7 @@ $(document).ready(function(){
 				},	
 			],
 					indexCounter: 0,
-					// waitTime: 5, //considering doing setTimeout instead of fn
-					timer: 5, //MUST CHANGE BACK TO 10seconds	 
+					timer: 10, 	 
 					correctAnswers: 0,
 					incorrectAnswers: 0,
 					unanswered: 0,
@@ -124,23 +123,18 @@ $(document).ready(function(){
 						$("#timerHolder").html("Time Left:" + triviaGame.timer);
 						
 						// triviaGame.timesUp();
-							if(triviaGame.timer == 0) { //can't take out line 125 and 126 to use timesUp, breaks things
+							if(triviaGame.timer == 0) { 
 								clearInterval(triviaGame.nIntervId);
 								/*Tried to get the next two lines to work if timer runs out*/
-								triviaGame.indexCounter++; //should have gone to next question set
-								triviaGame.timer=5;
-								triviaGame.unanswered++;
-								triviaGame.gamePlay();// should have invoked game fn	 
+								triviaGame.indexCounter++; //goes to next question
+								triviaGame.timer=10;	//resets the timer per question set
+								triviaGame.unanswered++; //increases unanswered
+								triviaGame.gamePlay();	//invokes gamePlay fn 
 							}
 					}, 1000);
 					
 				},
-				// timesUp: function(){ //doesn't work the idea was to separate parts of timer to go to next ques when time <0
-				// 	if(triviaGame.timer <= 0) { 
-				// 	clearInterval(triviaGame.nIntervId);
-					
-				// 	}
-				// }, 
+				
 				
 				gamePlay: function() { //function to display questions and handle answers
 					// triviaGame.reset()
@@ -148,8 +142,7 @@ $(document).ready(function(){
 					if (triviaGame.indexCounter > 9) {
 						triviaGame.endGame();
 					}else {
-						/*tried to move the timer variable and jQuery selector here 
-						and leave the timer decrement and if statement inside tenSecond fn*/
+						
 
 						/*var created to make position of answer and incorrect answers random
 						and also .empty removes the first set of Q & A so the next one can replace*/
@@ -161,7 +154,7 @@ $(document).ready(function(){
 
 						//run ten second timer
 						triviaGame.tenSeconds();
-						// triviaGame.timesUp();//doesn't work
+						
 
 						$("#timerHolder").html("Time Left:" + triviaGame.timer);
 						//display questions 
@@ -176,9 +169,7 @@ $(document).ready(function(){
 						$("#answersHolder").append('<div><button class="answer btn btn-default">' + choices[i]);
 						}
 						triviaGame.answer();
-
-						/*then switch to next question 5s after the end of the timer or answer selected, need
-						a timer for each question, setTimeout? at the end*/	
+	
 					}	
 				}, 
 				answer: function() {
@@ -186,7 +177,7 @@ $(document).ready(function(){
 					$(".answer").click(function() {
 						console.log($(this).text());//checking that the text of btn shows, means working
 						clearInterval(triviaGame.nIntervId);//clears timer
-						triviaGame.timer=5;//resets timer to 10 once clears
+						triviaGame.timer=10;//resets timer to 10 once clears
 						if(triviaGame.questions[triviaGame.indexCounter].answer === $(this).text()) {
 							console.log("correct answer");
 							triviaGame.correctAnswers++;

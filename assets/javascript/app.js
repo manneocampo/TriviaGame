@@ -96,12 +96,13 @@ $(document).ready(function(){
 				},	
 			],
 					indexCounter: 0,
-					waitTime: 5,
+					// waitTime: 5, //considering doing setTimeout instead of fn
 					timer: 5, //MUST CHANGE BACK TO 10seconds	 
 					correctAnswers: 0,
 					incorrectAnswers: 0,
 					unanswered: 10,
 					nIntervId: null, 
+
 				reset: function() {
 					this.indexCounter = 0;
 					this.correctAnswers = 0; 
@@ -122,8 +123,9 @@ $(document).ready(function(){
 						triviaGame.timer--;
 							if(triviaGame.timer < 0) { 
 								clearInterval(triviaGame.nIntervId);
-								// triviaGame.answer();
-								 
+								/*Tried to get the next two lines to work if timer runs out*/
+								//indexCounter++; should have gone to next question set
+								// triviaGame.gamePlay(); should have invoked game fn	 
 							}
 					}, 1000);
 					
@@ -134,6 +136,8 @@ $(document).ready(function(){
 					if (triviaGame.indexCounter > 9) {
 						triviaGame.endGame();
 					}else {
+						/*tried to move the timer variable and jQuery selector here 
+						and leave the timer decrement and if statement inside tenSecond fn*/
 
 						/*var created to make position of answer and incorrect answers random
 						and also .empty removes the first set of Q & A so the next one can replace*/
@@ -160,7 +164,7 @@ $(document).ready(function(){
 						triviaGame.answer();
 
 						/*then switch to next question 5s after the end of the timer or answer selected, need
-						a timer for each question*/	
+						a timer for each question, setTimeout? at the end*/	
 					}	
 				}, 
 				answer: function() {
@@ -192,6 +196,9 @@ $(document).ready(function(){
 					$(".questions").hide();	
 					$(".answers").hide();
 					$(".button").hide();
+					$("#timerHolder").hide();
+					$(".display").hide();
+					$("#timerHolder", ".questions", ".answer", ".display").empty();
 					$("#correctPoints").html("Correct Answers:" + triviaGame.correctAnswers);//meant to show points
 					$("#incorrectPoints").html("Incorrect Answers:" + triviaGame.incorrectAnswers);//meant to show points
 				},

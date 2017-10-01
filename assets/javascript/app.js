@@ -103,15 +103,15 @@ $(document).ready(function(){
 					nIntervId: null, 
 
 				reset: function() {
-					this.indexCounter = 0;
-					this.correctAnswers = 0; 
-					this.incorrectAnswers = 0; 
-					this.unanswered = 10;
-					this.timer= 10; 
-					this.gamePlay(); 
-					$("#triviaResults").html(this.correctAnswers);
-					$("#triviaResults").html(this.incorrectAnswers);
-					$("#triviaResults").html(this.unanswered);
+					triviaGame.indexCounter = 0;
+					triviaGame.correctAnswers = 0; 
+					triviaGame.incorrectAnswers = 0; 
+					triviaGame.unanswered = 10;
+					triviaGame.timer= 10; 
+					triviaGame.gamePlay(); 
+					$("#triviaResults").html(triviaGame.correctAnswers);
+					$("#triviaResults").html(triviaGame.incorrectAnswers);
+					$("#triviaResults").html(triviaGame.unanswered);
 					/*idea is that I will replace the div with the objects 
 					upon reset and will display only once game is done*/
 				},
